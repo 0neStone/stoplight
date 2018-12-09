@@ -1,34 +1,34 @@
-from turtle import *
+import turtle
 import time
 
 # Aufgabe: Ampel erstellen, die mit Bytes gesteuert wird
 
-t=Turtle(shape='classic')  #Turtle “t“ erstellen
-t.hideturtle()
-t.speed(100)
+pen = turtle.Turtle()  # Initialize pen
+pen.hideturtle()
+pen.speed(100)
 r: int = 80
 width: int = 2*r +20
 height: int = 3*(2*r) +40
 
 # Create black box in which all the lights fit
 def create_box():
-    t.color("black", "black")
+    pen.color("black", "black")
 
-    t.up()
-    t.goto(-(width/2), height/2)
-    t.down()
+    pen.up()
+    pen.goto(-(width/2), height/2)
+    pen.down()
 
-    t.begin_fill()
-    t.forward(width)
-    t.right(90)
-    t.forward(height)
-    t.right(90)
-    t.forward(width)
-    t.right(90)
-    t.forward(height)
-    t.end_fill()
+    pen.begin_fill()
+    pen.forward(width)
+    pen.right(90)
+    pen.forward(height)
+    pen.right(90)
+    pen.forward(width)
+    pen.right(90)
+    pen.forward(height)
+    pen.end_fill()
 
-    t.left(90)
+    pen.left(90)
 
 # Rotes Licht erschaffen/verändern
 def red_light(byte: str):
@@ -36,13 +36,13 @@ def red_light(byte: str):
     if byte == "00000011":
         color = "red"
 
-    t.up()
-    t.goto(0, -r)
-    t.down()
-    t.color("grey", color)
-    t.begin_fill()
-    t.circle(r)
-    t.end_fill()
+    pen.up()
+    pen.goto(0, -r)
+    pen.down()
+    pen.color("grey", color)
+    pen.begin_fill()
+    pen.circle(r)
+    pen.end_fill()
 
 # Gelbes Licht erschaffen/verändern
 def yellow_light(byte: str):
@@ -50,13 +50,13 @@ def yellow_light(byte: str):
     if byte == "00000010":
         color = "yellow"
 
-    t.up()
-    t.goto(0, r)
-    t.down()
-    t.color("grey", color)
-    t.begin_fill()
-    t.circle(r)
-    t.end_fill()
+    pen.up()
+    pen.goto(0, r)
+    pen.down()
+    pen.color("grey", color)
+    pen.begin_fill()
+    pen.circle(r)
+    pen.end_fill()
 
 # Grünes Licht erschaffen/verändern
 def green_light(byte: str):
@@ -64,13 +64,13 @@ def green_light(byte: str):
     if byte == "00000001":
         color = "green"
 
-    t.up()
-    t.goto(0, 3*r)
-    t.down()
-    t.color("grey", color)
-    t.begin_fill()
-    t.circle(r)
-    t.end_fill()
+    pen.up()
+    pen.goto(0, 3*r)
+    pen.down()
+    pen.color("grey", color)
+    pen.begin_fill()
+    pen.circle(r)
+    pen.end_fill()
 
 # Lichter zum ersten Mal erstellen
 def create_lights():
@@ -93,4 +93,4 @@ change_lights("00000010") # yellow light
 time.sleep(2)
 change_lights("00000011") # red light
 
-mainloop()
+turtle.mainloop()
