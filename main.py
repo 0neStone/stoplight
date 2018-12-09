@@ -6,91 +6,96 @@ import time
 pen = turtle.Turtle()  # Initialize pen
 pen.hideturtle()
 pen.speed(100)
-r: int = 80
-width: int = 2*r +20
-height: int = 3*(2*r) +40
 
-# Create black box in which all the lights fit
-def create_box():
-    pen.color("black", "black")
+class Stoplight:
+    def __init__(self, radius):
+        self.r = radius
+        self.width = 2*self.r +20
+        self.height = 3*(2*self.r) +40
 
-    pen.up()
-    pen.goto(-(width/2), height/2)
-    pen.down()
+    # Create black box in which all the lights fit
+    def create_box(self):
+        pen.color("black", "black")
 
-    pen.begin_fill()
-    pen.forward(width)
-    pen.right(90)
-    pen.forward(height)
-    pen.right(90)
-    pen.forward(width)
-    pen.right(90)
-    pen.forward(height)
-    pen.end_fill()
+        pen.up()
+        pen.goto(-(self.width/2), self.height/2)
+        pen.down()
 
-    pen.left(90)
+        pen.begin_fill()
+        pen.forward(self.width)
+        pen.right(90)
+        pen.forward(self.height)
+        pen.right(90)
+        pen.forward(self.width)
+        pen.right(90)
+        pen.forward(self.height)
+        pen.end_fill()
 
-# Rotes Licht erschaffen/verändern
-def red_light(byte: str):
-    color = "grey"
-    if byte == "00000011":
-        color = "red"
+        pen.left(90)
 
-    pen.up()
-    pen.goto(0, -r)
-    pen.down()
-    pen.color("grey", color)
-    pen.begin_fill()
-    pen.circle(r)
-    pen.end_fill()
+    # Rotes Licht erschaffen/verändern
+    def red_light(self, byte: str):
+        color = "grey"
+        if byte == "00000011":
+            color = "red"
 
-# Gelbes Licht erschaffen/verändern
-def yellow_light(byte: str):
-    color = "grey"
-    if byte == "00000010":
-        color = "yellow"
+        pen.up()
+        pen.goto(0, -self.r)
+        pen.down()
+        pen.color("grey", color)
+        pen.begin_fill()
+        pen.circle(self.r)
+        pen.end_fill()
 
-    pen.up()
-    pen.goto(0, r)
-    pen.down()
-    pen.color("grey", color)
-    pen.begin_fill()
-    pen.circle(r)
-    pen.end_fill()
+    # Gelbes Licht erschaffen/verändern
+    def yellow_light(self, byte: str):
+        color = "grey"
+        if byte == "00000010":
+            color = "yellow"
 
-# Grünes Licht erschaffen/verändern
-def green_light(byte: str):
-    color = "grey"
-    if byte == "00000001":
-        color = "green"
+        pen.up()
+        pen.goto(0, self.r)
+        pen.down()
+        pen.color("grey", color)
+        pen.begin_fill()
+        pen.circle(self.r)
+        pen.end_fill()
 
-    pen.up()
-    pen.goto(0, 3*r)
-    pen.down()
-    pen.color("grey", color)
-    pen.begin_fill()
-    pen.circle(r)
-    pen.end_fill()
+    # Grünes Licht erschaffen/verändern
+    def green_light(self, byte: str):
+        color = "grey"
+        if byte == "00000001":
+            color = "green"
 
-# Lichter zum ersten Mal erstellen
-def create_lights():
-    create_box()
-    green_light("00000001")
-    yellow_light("00000010")
-    red_light("00000011")
+        pen.up()
+        pen.goto(0, 3*self.r)
+        pen.down()
+        pen.color("grey", color)
+        pen.begin_fill()
+        pen.circle(self.r)
+        pen.end_fill()
 
-# Lichter durch Byte-Befehle verändern
-def change_lights(byte: str):
-    green_light(byte)
-    yellow_light(byte)
-    red_light(byte)
+    # Lichter zum ersten Mal erstellen
+    def create_lights(self):
+        self.create_box()
+        self.green_light("00000001")
+        self.yellow_light("00000010")
+        self.red_light("00000011")
 
-create_lights()
+    # Lichter durch Byte-Befehle verändern
+    def change_lights(self, byte: str):
+        self.green_light(byte)
+        self.yellow_light(byte)
+        self.red_light(byte)
+
+Light1 = Stoplight(80)
+
+Light1.create_lights()
 time.sleep(2)
-change_lights("00000001") # green light
+Light1.change_lights("00000001") # green light
 time.sleep(2)
-change_lights("00000010") # yellow light
+Light1.change_lights("00000010") # yellow light
 time.sleep(2)
-change_lights("00000011") # red light
+Light1.change_lights("00000011") # red light
 
 turtle.mainloop()
